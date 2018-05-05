@@ -1,14 +1,27 @@
-//import axios from 'axios';
+import axios from 'axios';
 
 
 export const LOGIN_DATA = 'LOGIN_DATA';
-    
-export const Login_maowang=(user,pass)=>{
-    console.log('看看参数对不对',user,pass)
-    // return {type:LOGIN_DATA, payload:axios.post('http://admin.zhsoft.cc/index.php/login/login',{name:user,pass:pass})}
-    return {type:LOGIN_DATA,name:user}
+export const LOGIN_PASS = 'LOGIN_PASS';
 
-
+//export const Login_maowang={type:LOGIN_DATA}  
+export const Login_maowang=(user,password)=>{
+    console.log(2)
+    console.log(user,password)
+    axios.defaults.withCredentials = true
+    axios.post('http://test.zhsoft.cc/v1/admin/login','username='+user+'&password='+password,{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+        .then(function(res){
+          console.log(res);
+        })
+        .catch(function(err){
+          console.log(err);
+        });
+    return {type:LOGIN_DATA}
+}  
+/*export const Login_maowang=(user,pass)=>{
+            console.log(user,pass)
+            return {type:LOGIN_DATA}
+}*/
     /*axios.post('https://www.zhsoft.cc/m_api/login', 'name='+user+'&pass='+pass, {headers: {'Content-Type': 'application/x-www-form-urlencoded;'}})
     .then(function (response) {
         console.log(response);
@@ -25,8 +38,9 @@ export const Login_maowang=(user,pass)=>{
     .catch(function (error) {
         console.log(error);
     });*/
+export const Login_mao={type:LOGIN_PASS}
 
-  }
+
 
 /*export const getsydata=()=>{
     let now = new Date();

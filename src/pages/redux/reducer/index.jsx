@@ -1,13 +1,23 @@
-import {LOGIN_DATA} from '../action'
+import {LOGIN_DATA,LOGIN_PASS} from '../action'
 //import {GETSY_DATA, GETSY_DATA_PENDING, GETSY_DATA_FULFILLED, GETSY_DATA_REJECTED} from '../action'
 import { hashHistory } from 'react-router';
 export default (state, action) => {
-    console.log('状态来了啊', state, action)
+    const name = state.name;
+    const pas = state.pas;
+
+
+    console.log('3状态来了啊', state, action)
+
+
     switch (action.type) {
         case LOGIN_DATA://该值被中间件处理了，并不会接受到
-            console.log('登陆开始了')
+
+            console.log('4登陆开始了')
             console.log(...state)
-            return {...state,name:action.name+1}
+            
+            return {...state,name:name+1}
+        case LOGIN_PASS:
+            return {...state,pas:pas+2}
 
 
         /*case LOGIN_DATA_PENDING:

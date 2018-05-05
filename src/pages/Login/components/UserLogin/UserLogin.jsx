@@ -9,8 +9,13 @@ import {
 } from '@icedesign/form-binder';
 import IceIcon from '@icedesign/icon';
 import './UserLogin.scss';
+
+
 import {Login_maowang} from '../../../redux/action';
+import {Login_mao} from '../../../redux/action';
 import {connect} from 'react-redux';
+
+
 
 const { Row, Col } = Grid;
 
@@ -43,7 +48,10 @@ class UserLogin extends Component {
   };
 
   handleSubmit = (e) => {
-    this.props.dispatch(Login_maowang(this.props.xingming,333))
+    console.log(1)
+    console.log(this.state.value.account)
+    this.props.dispatch(Login_maowang(this.state.value.account,this.state.value.password))
+    //this.props.dispatch(Login_maowang)
     e.preventDefault();
     this.refs.form.validateAll((errors, values) => {
       if (errors) {
@@ -55,8 +63,21 @@ class UserLogin extends Component {
       hashHistory.push('/');
     });
   };
-
-  render() {
+  handle = (e) => {
+   // this.props.dispatch(Login_mao(this.props.passw,444))
+   //this.props.dispatch(Login_mao)
+    e.preventDefault();
+    this.refs.form.validateAll((errors, values) => {
+      if (errors) {
+        console.log('errors', errors);
+        return;
+      }
+      console.log('values:', values);
+      console.log(this.props);
+      hashHistory.push('/');
+    });
+  };  render() {
+    const {xingming,passw,handleSubmit,handle}=this.props;
     return (
       <div style={styles.userLogin} className="user-login">
         <div
@@ -139,7 +160,8 @@ class UserLogin extends Component {
               </div>
               
             </IceFormBinderWrapper>
-            <Button onClick={this.handleSubmit}>{this.props.xingming}</Button>
+            <Button onClick={handleSubmit}>{xingming}</Button>
+            <Button onClick={handle}>{passw}</Button>
           </div>
         </div>
         
@@ -210,15 +232,28 @@ const styles = {
 };
 
 
-
+//建立一个（从外部的）state对象到（UI组件的）props对象的映射关系
 function mapStateToProps(state, ownProps) {
-    console.log('mapState', state, ownProps);
+    console.log('5 mapState', state, ownProps);
     
         //hashHistory.push('/');
-        return {xingming:state.name}
+        return {xingming:state.name,
+                passw:state.pas,
+                /*username:state.value.account,*/
+        }
 
     // return state;
 }
 
-
+/*//建立UI组件的参数到store.dispatch方法的映射
+function mapDispatchToProps(dispatch) {
+    console.log(3)
+    console.log(account)
+    console.log(4)
+    return {
+        handleSubmit: () => dispatch(Login_maowang),
+        handle: () => dispatch(Login_mao)
+    }
+}
+*/
 export default connect(mapStateToProps)(UserLogin)

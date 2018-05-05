@@ -4,7 +4,8 @@ const initValue={
     'First':0,
     'Second':10,
     'Third':20,
-    'name':555
+    'name':555,
+    'pas':666,
 }
 
 
